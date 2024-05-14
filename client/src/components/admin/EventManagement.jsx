@@ -37,7 +37,7 @@ const EventManagement = () => {
     };
 
     const FormikFileInput = ({ ...props }) => {
-        const [field, , helpers] = useField(props);
+        const [ helpers] = useField(props);
         return (
             <input
                 type="file"

@@ -7,7 +7,6 @@ import 'swiper/css/pagination';
 
 
 const Gearbanner = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
     '/clothes/image1.png',
@@ -15,13 +14,6 @@ const Gearbanner = () => {
     '/clothes/womanshirt.png'
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
 
   return (
     <Swiper

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import dotenv from '../../';
 import { useRef } from 'react';
 
 const Cart = () => {

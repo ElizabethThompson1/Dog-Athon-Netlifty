@@ -8,17 +8,17 @@ import {
 } from "@material-tailwind/react";
 
 const Event = ({ event }) => {
-  const { title, day, month, year, address, description, imageUrl } = event; 
+  const { title, day, month, year, address, description, imageUrl } = event;
 
   const descriptionShortened = description.split(' ').slice(0, 10).join(' ');
   const isDescriptionLong = description.split(' ').length > 10;
 
   return (
-    <Card className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 mx-auto flex flex-row md:flex-row bg-gray-100  shadow-md rounded-lg">
+    <Card className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 mx-auto flex flex-col md:flex-row bg-gray-100 shadow-md rounded-lg">
       <img
         src={imageUrl}
-        alt="event image"
-        className="w-full md:w-1/2 object-cover rounded-lg md:rounded-l-lg"
+        alt={`${title} image`}
+        className="w-full md:w-1/2 object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
       />
       <CardBody className="p-4 md:w-1/2">
         <Typography variant="h6" className="text-custom-blue mb-2 uppercase font-sans">

@@ -8,10 +8,9 @@ const About = () => {
         <div className="bg-white text-gray-800 h-screen w-full">
             <div className="container mx-auto py-16 h-full">
                 <div className="flex flex-col lg:flex-row items-center lg:justify-center gap-14 h-full">
-                    {/* got Image list from https://mui.com/material-ui/react-image-list/ */}
                     <ImageList sx={{ width: 500, height: 450, transformStyle: 'preserve-3d' }} variant="woven" cols={3} gap={8}>
                         {itemData.map((item) => (
-                            <ImageListItem key={item.image}>
+                            <ImageListItem key={item.id}>
                                 <img
                                     srcSet={`${item.image}?w=161&fit=crop&auto=format&dpr=2 2x`}
                                     src={`${item.image}?w=161&fit=crop&auto=format`}

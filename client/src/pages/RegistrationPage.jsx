@@ -23,8 +23,7 @@ const RegistrationPage = () => {
         }
       });
       
-      console.log(response.data); // Log success response
-      // Assuming the response data has a user ID, redirect on success:
+      console.log(response.data); 
       navigate.push(`/login`); // Redirect and pass the user ID
     } catch (error) {
       console.error('Error registering user:', error);
@@ -33,7 +32,7 @@ const RegistrationPage = () => {
   };
 
   const FormikFileInput = ({ ...props }) => {
-    const [field, , helpers] = useField(props);
+    const [ helpers] = useField(props);
     return (
       <input
         type="file"

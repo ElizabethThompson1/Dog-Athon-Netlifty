@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage, useField } from "formik";
-import { Link } from 'react-router-dom';
 
 const CreateUser = () => {
     const navigate = useNavigate(); // Hook to get access to the navigate instance
