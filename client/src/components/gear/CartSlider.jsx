@@ -6,6 +6,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const CartSlider = () => {
     const [gearData, setGearData] = useState([]);
 
@@ -15,7 +17,7 @@ const CartSlider = () => {
 
     const fetchGearData = async () => {
         try {
-            const response = await axios.get('http://localhost:3309/gear/');
+            const response = await axios.get('https://dog-athon-netlifty-2.onrender.com/gear/');
             setGearData(response.data);
         } catch (error) {
             console.error('Error fetching gear:', error);

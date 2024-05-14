@@ -5,19 +5,19 @@ const eventRoutes = require('./routes/eventRoutes');
 const gearRoutes = require('./routes/gearRoutes');
 const cartRoutes = require('./routes/cart');
 const stripeRoutes = require('./routes/stripeRoutes');
-
-
 const dotenv = require('dotenv');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+
 dotenv.config();
 
-// Define snipcartApiKey
-const snipcartApiKey = process.env.SNIPCART_API_KEY;
-const apiUrl = process.env.REACT_APP_API_BASE_URL;
+// // Define snipcartApiKey
+// const snipcartApiKey = process.env.SNIPCART_API_KEY;
+// const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
+// Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     const uploadPath = path.join(__dirname, 'uploads');
@@ -37,35 +37,22 @@ const upload = multer({ storage });
 const app = express();
 app.use(bodyParser.json());
 
-const allowedOrigins = [
-  process.env.SANITY_STUDIO_URL,     // Your Sanity studio URL
-  process.env.SERVER_URL,            // Your server URL
-  process.env.STRIPE_URL             // Your Stripe URL (if applicable)
-];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin, like mobile apps or curl requests
-    if (!origin) return callback(null, true);
+app.use(cors());
 
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-}));
 
+// Static files for uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Route handlers
 app.use('/users', userRoutes);
 app.use('/event', eventRoutes);
 app.use('/gear', gearRoutes);
 app.use('/cart', cartRoutes);
 app.use('/stripe', stripeRoutes);
 
-const PORT = process.env.PORT || 3309;
+// Start the server
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

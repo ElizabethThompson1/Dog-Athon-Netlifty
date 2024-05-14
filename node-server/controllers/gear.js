@@ -37,7 +37,7 @@ const createGear = async (req, res) => {
         medium: sizes.medium,
         large: sizes.large,
       },
-      gearImage: {
+      Image: {
         _type: 'image',
         asset: {
           _type: 'reference',
@@ -86,7 +86,7 @@ const getAllGears = async (req, res) => {
         name,
         price,
         sizes,
-        "imageUrl": gearImage.asset->url
+        "imageUrl": Image.asset->url
       }
     `);
     res.status(200).json(gears);
@@ -95,6 +95,7 @@ const getAllGears = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch gears' });
   }
 };
+
 
 const deleteGearById = async (req, res) => {
   const { gearId } = req.params;

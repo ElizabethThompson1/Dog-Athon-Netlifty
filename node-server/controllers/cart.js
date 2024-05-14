@@ -1,49 +1,55 @@
 const { createClient } = require('@sanity/client');
 const dotenv = require('dotenv');
 
-
 dotenv.config();
 
-// Create the Sanity client instance
 const client = createClient({
   projectId: process.env.PROJECT_ID,
   dataset: process.env.DATASET,
   useCdn: false,
-  token: process.env.TOKEN,
-  apiVersion: "2022-02-03"
+  token: process.env.SANITY_TOKEN,
+  apiVersion: "2022-02-03" 
 });
-// Helper function to calculate total price
+
 const calculateTotalPrice = async (items) => {
   const itemIds = items.map(item => item._ref);
   const products = await client.fetch(`*[_id in $itemIds]`, { itemIds });
   return products.reduce((total, product) => total + product.price, 0);
 };
 
-// Add item to cart
 const addItemToCart = async (req, res) => {
   const { userId, guestToken, item } = req.body;
   const cartKey = userId ? `cart-${userId}` : `cart-${guestToken}`;
 
   try {
+    console.log(`userId: ${userId}`);
+    console.log(`guestToken: ${guestToken}`);
+    console.log(`item: ${JSON.stringify(item)}`);
+
+    // Fetch existing cart
     let cart = await client.fetch(`*[_type == "cart" && _id == $cartKey][0]`, { cartKey });
 
     if (!cart) {
+      // Create a new cart if none exists
       cart = await client.create({
         _id: cartKey,
         _type: 'cart',
-        items: [item],
+        items: [{ _ref: item._id, _type: 'reference' }],
         totalPrice: item.price,
         user: userId ? { _type: 'reference', _ref: userId } : undefined,
-        guestToken: guestToken ? guestToken : undefined,
+        guestToken: guestToken || undefined,
       });
     } else {
-      cart.items.push(item);
+      // Update existing cart
+      cart.items.push({ _ref: item._id, _type: 'reference' });
       cart.totalPrice = await calculateTotalPrice(cart.items);
       await client.patch(cart._id).set(cart).commit();
     }
 
     res.status(200).json(cart);
   } catch (error) {
+    console.error('Error adding item to cart:', error.message);
+    console.error('Error details:', error);
     res.status(500).json({ error: error.message });
   }
 };
