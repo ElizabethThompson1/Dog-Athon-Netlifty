@@ -7,7 +7,7 @@ const client = createClient({
   projectId: process.env.PROJECT_ID,
   dataset: process.env.DATASET,
   useCdn: false,
-  token: process.env.SANITY_TOKEN,
+  token: process.env.TOKEN,
   apiVersion: "2022-02-03" 
 });
 
