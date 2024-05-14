@@ -1,14 +1,8 @@
 [build]
   base = "/"
-  command = "npm run build"
+  command = "npm install && cd client && npm install && npm run build"
   publish = "client/build"
   functions = "netlify/functions"
-
-[dev]
-  framework = "#custom"
-  command = "npm run start-server"
-  targetPort = 3001
-  port = 8888
 
 [[redirects]]
   from = "/api/*"

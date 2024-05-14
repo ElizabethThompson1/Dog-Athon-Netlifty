@@ -14,10 +14,12 @@ const GearDisplay = () => {
         fetchGearData();
     }, []);
 
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
     const fetchGearData = async () => {
         try {
             const token = userId || guestToken; 
-            const response = await axios.get('http://localhost:3309/gear/', {
+            const response = await axios.get(`${apiUrl}/gear/`, {
                 headers: {
                     Authorization: token ? token : ''
                 }
