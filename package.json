@@ -1,0 +1,50 @@
+{
+  "name": "dog-athon",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run start-react & npm run start-server",
+    "build": "npm run build-react",
+    "start-react": "cd client && npm start",
+    "start-server": "cd node-server && node server.js",
+    "build-react": "cd client && npm run build"
+  },
+    "dependencies": {
+      "@emotion/react": "^11.11.4",
+      "@emotion/styled": "^11.11.5",
+      "@material-tailwind/react": "^2.1.9",
+      "@mui/material": "^5.15.17",
+      "@mui/styled-engine": "^5.15.14",
+      "@sanity/image-url": "^1.0.2",
+      "@testing-library/jest-dom": "^5.17.0",
+      "@testing-library/react": "^13.4.0",
+      "@testing-library/user-event": "^13.5.0",
+      "axios": "^1.6.8",
+      "formik": "^2.4.6",
+      "jwt-decode": "^4.0.0",
+      "mdb-react-ui-kit": "^8.0.0",
+      "primereact": "^10.6.5",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-icons": "^5.2.1",
+      "react-router-dom": "^6.23.1",
+      "swiper": "^11.1.1",
+      "web-vitals": "^2.1.4",
+      "yup": "^1.4.0",
+      "@sanity/vision": "^3.41.1",
+      "styled-components": "^6.1.8",
+      "express": "^4.19.2",
+      "bcrypt": "^5.1.1",
+      "body-parser": "^1.20.2",
+      "dotenv": "^16.4.5",
+      "jsonwebtoken": "^9.0.2"
+    },
+    "devDependencies": {
+      "@sanity/eslint-config-studio": "^4.0.0",
+      "@types/react": "^18.0.25",
+      "eslint": "^8.6.0",
+      "prettier": "^3.0.2",
+      "typescript": "^5.1.6"
+    }
+  }
+  

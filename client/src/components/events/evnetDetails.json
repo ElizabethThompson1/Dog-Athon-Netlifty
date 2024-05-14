@@ -1,0 +1,93 @@
+[
+    {
+      "id": 1,
+      "title": "Colorful Canine 5K",
+      "month": "June",
+      "day": 15,
+      "year": 2024,
+      "description": "Join us for the Colorful Canine 5K, where you and your furry friend can enjoy a vibrant and energetic run through scenic routes filled with colorful surprises.",
+      "address": "123 Main St, Jacksonville, FL 32210",
+      "image": "/events/1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Paws in the Park 10K",
+      "month": "July",
+      "day": 20,
+      "year": 2024,
+      "description": "Experience the excitement of the Paws in the Park 10K, a fun-filled event that celebrates the bond between you and your four-legged companion. Join us for a scenic run through beautiful parks and trails in Jacksonville.",
+      "address": "456 Elm St, Jacksonville, FL 32211",
+      "image": "/events/2.webp"
+    },
+    {
+      "id": 3,
+      "title": "Doggie Dash Half Marathon",
+      "month": "August",
+      "day": 10,
+      "year": 2024,
+      "description": "Get ready for the Doggie Dash Half Marathon, where you and your canine companion can tackle the challenge of a half marathon together. Enjoy breathtaking views and an unforgettable experience.",
+      "address": "789 Oak St, Jacksonville, FL 32212",
+      "image": "/events/3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Tail Waggin' 10-Miler",
+      "month": "September",
+      "day": 5,
+      "year": 2024,
+      "description": "Join us for the Tail Waggin' 10-Miler, a scenic and exhilarating run along Jacksonville's picturesque trails. Bring your furry friend and enjoy a memorable day of running and wagging tails.",
+      "address": "101 Pine St, Jacksonville, FL 32213",
+      "image": "/events/4.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Bark in the Park 5K",
+      "month": "October",
+      "day": 12,
+      "year": 2024,
+      "description": "Join us for Bark in the Park 5K, a dog-friendly event where you can enjoy a scenic run through Jacksonville's beautiful parks with your furry friend by your side.",
+      "address": "202 Willow St, Jacksonville, FL 32214",
+      "image": "/events/5.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Woofstock Fun Run",
+      "month": "November",
+      "day": 8,
+      "year": 2024,
+      "description": "Get ready for Woofstock Fun Run, a groovy event where you and your dog can run, dance, and celebrate the bond between humans and pets. Join us for a day of peace, love, and paws!",
+      "address": "303 Maple St, Jacksonville, FL 32215",
+      "image": "/events/6.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Furry Friends 10K",
+      "month": "December",
+      "day": 20,
+      "year": 2024,
+      "description": "Experience the joy of running with your furry friend at Furry Friends 10K. Enjoy a scenic route through Jacksonville's parks and trails while creating unforgettable memories with your pet.",
+      "address": "404 Oak St, Jacksonville, FL 32216",
+      "image": "/events/7.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Canine Christmas Run",
+      "month": "December",
+      "day": 25,
+      "year": 2024,
+      "description": "Celebrate Christmas with your furry friend at the Canine Christmas Run. Dress up in festive attire and enjoy a jolly run through Jacksonville's winter wonderland.",
+      "address": "505 Elm St, Jacksonville, FL 32217",
+      "image": "/events/8.jpg"
+    },
+    {
+      "id": 9,
+      "title": "New Year's Resolution Run",
+      "month": "January",
+      "day": 1,
+      "year": 2025,
+      "description": "Start the new year on the right paw with the New Year's Resolution Run. Set fitness goals for you and your furry friend and kick off the year with a healthy and active lifestyle.",
+      "address": "606 Pine St, Jacksonville, FL 32218",
+      "image": "/events/9.jpg"
+    }
+  ]
+  

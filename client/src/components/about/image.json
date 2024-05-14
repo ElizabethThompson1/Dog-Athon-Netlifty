@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "image": "/about/1.jpeg"
+    },
+    {
+        "id": 2,
+        "image": "/about/2.jpeg"
+    },
+    {
+        "id": 3,
+        "image": "/about/3.jpeg"
+    },
+    {
+        "id": 4,
+        "image": "/about/4.jpeg"
+    },
+    {
+        "id": 5,
+        "image": "/about/5.jpeg"
+    },
+    {
+        "id": 6,
+        "image": "/about/6.jpeg"
+    },
+    {
+        "id": 7,
+        "image": "/about/7.jpeg"
+    },
+    {
+        "id": 8,
+        "image": "/about/8.jpeg"
+    },
+    {
+        "id": 89,
+        "image": "/about/9.jpeg"
+    }
+]

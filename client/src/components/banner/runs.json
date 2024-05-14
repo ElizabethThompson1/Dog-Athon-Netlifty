@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Dog Show Competition",
+        "image": "/banner/bubbleRun.png",
+        "cost": "$85"
+    },
+    {
+        "id": 2,
+        "title": "Puppy Adoption Event",
+        "image": "/banner/colorrun.png",
+        "cost": "$72"
+    },
+    {
+        "id": 3,
+        "title": "Dog Training Workshop",
+        "image": "/banner/colorRunDogs.png",
+        "cost": "$93"
+    },
+    {
+        "id": 4,
+        "title": "Canine Agility Course",
+        "image": "/banner/run.png",
+        "cost": "$106"
+    }
+]
