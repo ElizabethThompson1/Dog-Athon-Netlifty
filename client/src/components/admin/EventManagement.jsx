@@ -1,11 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, useField } from "formik";
 
 
 const EventManagement = () => {
-    const navigate = useNavigate();
 
     const handleFormSubmit = async (values, { setSubmitting }) => {
         const formDataToSend = new FormData();

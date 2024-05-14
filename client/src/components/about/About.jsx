@@ -10,11 +10,11 @@ const About = () => {
                 <div className="flex flex-col lg:flex-row items-center lg:justify-center gap-14 h-full">
                     <ImageList sx={{ width: 500, height: 450, transformStyle: 'preserve-3d' }} variant="woven" cols={3} gap={8}>
                         {itemData.map((item) => (
-                            <ImageListItem key={item.id}>
+                            <ImageListItem key={item.image}>
                                 <img
                                     srcSet={`${item.image}?w=161&fit=crop&auto=format&dpr=2 2x`}
                                     src={`${item.image}?w=161&fit=crop&auto=format`}
-                                    alt={`Image ${item.id}`}
+                                    alt={`Event ${item.id}`}
                                     loading="lazy"
                                 />
                             </ImageListItem>
