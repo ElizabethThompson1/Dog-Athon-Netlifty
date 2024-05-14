@@ -16,6 +16,7 @@ dotenv.config();
 
 // Define snipcartApiKey
 const snipcartApiKey = process.env.SNIPCART_API_KEY;
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -35,7 +36,27 @@ const upload = multer({ storage });
 // Initialize Express app
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+
+const allowedOrigins = [
+  process.env.SANITY_STUDIO_URL,     // Your Sanity studio URL
+  process.env.SERVER_URL,            // Your server URL
+  process.env.STRIPE_URL             // Your Stripe URL (if applicable)
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin, like mobile apps or curl requests
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/users', userRoutes);
