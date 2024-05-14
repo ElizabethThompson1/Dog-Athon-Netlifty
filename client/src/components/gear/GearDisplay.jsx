@@ -2,13 +2,35 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IoGrid } from "react-icons/io5";
 import { FaGripLines } from "react-icons/fa";
+import { v4 as uuidv4 } from 'uuid';
 
 const GearDisplay = () => {
     const [sortBy, setSortBy] = useState('');
     const [displayStyle, setDisplayStyle] = useState('grid');
     const [gearData, setGearData] = useState([]);
-    const userId = localStorage.getItem('userId');
-    const guestToken = localStorage.getItem('guestToken');
+    const [userId, setUserId] = useState(localStorage.getItem('userInfo'));
+    const [guestToken, setGuestToken] = useState(localStorage.getItem('guestToken'));
+
+    useEffect(() => {
+        // Check if userId or guestToken is available
+        if (!userId && !guestToken) {
+            const newGuestToken = uuidv4();
+            const expirationTime = Date.now() + 24 * 60 * 60 * 1000; // 24 hours from now
+            localStorage.setItem('guestToken', newGuestToken);
+            localStorage.setItem('guestTokenExpiry', expirationTime);
+            setGuestToken(newGuestToken);
+        } else {
+            // Check if guestToken has expired
+            const guestTokenExpiry = localStorage.getItem('guestTokenExpiry');
+            if (guestToken && guestTokenExpiry && Date.now() > guestTokenExpiry) {
+                const newGuestToken = uuidv4();
+                const expirationTime = Date.now() + 24 * 60 * 60 * 1000; // 24 hours from now
+                localStorage.setItem('guestToken', newGuestToken);
+                localStorage.setItem('guestTokenExpiry', expirationTime);
+                setGuestToken(newGuestToken);
+            }
+        }
+    }, [userId, guestToken]);
 
     useEffect(() => {
         fetchGearData();
@@ -42,8 +64,6 @@ const GearDisplay = () => {
                 item: {
                     _ref: item._id,
                     _type: item._type,
-                    price: item.price,
-                    name: item.name
                 }
             });
             console.log(response.data);
@@ -51,6 +71,7 @@ const GearDisplay = () => {
             // If the user is a guest and no guest token exists, save the guest token in localStorage
             if (!userId && !guestToken && response.data.guestToken) {
                 localStorage.setItem('guestToken', response.data.guestToken);
+                setGuestToken(response.data.guestToken);
             }
         } catch (error) {
             console.error('Error adding item to cart:', error);

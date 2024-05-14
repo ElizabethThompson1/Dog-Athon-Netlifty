@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, useField } from "formik";
 
 const GearManagement = () => {
+    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleFormSubmit = async (values, { setSubmitting }) => {
+    const handleFormSubmit = async (values, { setSubmitting, resetForm }) => {
         const formDataToSend = new FormData();
         formDataToSend.append('name', values.name);
         formDataToSend.append('price', values.price);
         formDataToSend.append('image', values.image);
-
 
         formDataToSend.append('sizes[small]', values.sizes.small);
         formDataToSend.append('sizes[medium]', values.sizes.medium);
@@ -23,10 +23,11 @@ const GearManagement = () => {
             });
 
             console.log(response.data); // Log success response
-            // Optionally, provide feedback to the user here (e.g., show a success message)
+            setSuccessMessage('Gear created successfully!');
+            resetForm(); // Clear the form
         } catch (error) {
             console.error('Error submitting form:', error);
-            // Optionally, provide feedback to the user here (e.g., show an error message)
+            setSuccessMessage('Error creating gear. Please try again.');
         }
         setSubmitting(false);
     };
@@ -49,6 +50,7 @@ const GearManagement = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             <h2 className="text-3xl font-semibold mb-4">Gear Management</h2>
+            {successMessage && <div className="text-green-500 mb-4">{successMessage}</div>}
             <Formik
                 initialValues={{
                     name: '',
@@ -59,7 +61,6 @@ const GearManagement = () => {
                         large: 0
                     },
                     image: null,
-                   
                 }}
                 onSubmit={handleFormSubmit}
             >
@@ -76,7 +77,7 @@ const GearManagement = () => {
                             </div>
                             <div className="w-full md:w-1/2 px-2">
                                 <label htmlFor="image" className="block text-sm font-semibold">Image</label>
-                                <FormikFileInput className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:border-blue-500" name="eventImage" accept="image/*" />
+                                <FormikFileInput className="w-full border border-gray-300 rounded-md px-4 py-2 mt-1 focus:outline-none focus:border-blue-500" name="image" accept="image/*" />
                             </div>
                             <div className="w-full md:w-1/2 px-2">
                                 <label className="block text-sm font-semibold">Sizes</label>

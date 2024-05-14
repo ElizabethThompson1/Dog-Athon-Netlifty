@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { getGearById, addGearToCart, createGear, deleteGearById,getAllGear } = require('../controllers/gear');
+const multer = require('multer');
+const { createGear, getAllGears, getGearById, updateGearById, deleteGearById } = require('../controllers/gear');
 
+const storage = multer.memoryStorage();
+
+const upload = multer({ storage });
+
+router.post('/create', upload.single('image'), createGear); // Create a new gear with image upload
+router.get('/', getAllGears);
 router.get('/:gearId', getGearById); // Get gear by ID
-router.post('/:gearId/cart', addGearToCart); // Add gear to cart
-router.post('/', createGear); // Create a new gear item
+router.put('/:gearId', updateGearById); // Update gear by ID
 router.delete('/:gearId', deleteGearById); // Delete gear by ID
-router.get('/', getAllGear); // Get all gear items
 
 module.exports = router;

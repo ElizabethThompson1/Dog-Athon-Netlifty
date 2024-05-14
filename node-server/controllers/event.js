@@ -13,13 +13,21 @@ const client = createClient({
   apiVersion: "2022-02-03"
 });
 
+// Create a new event
+const createEvent = async (req, res) => {
+  const { name, date, description, price, distance } = req.body;
+  const image = req.file;
 
-const createEvent = async (name, date, distance, price, distances) => {
   try {
+    if (!image) {
+      return res.status(400).json({ error: 'Image is required' });
+    }
 
-    const uploadedImage = await client.assets.upload('image', image);
+    const uploadedImage = await client.assets.upload('image', image.buffer, {
+      filename: image.originalname,
+      contentType: image.mimetype,
+    });
 
-    // Create a new event in the database with the reference to the uploaded image
     const newEvent = await client.create({
       _type: 'event',
       name,
@@ -27,7 +35,7 @@ const createEvent = async (name, date, distance, price, distances) => {
       description,
       price,
       distance,
-      Image: {
+      eventImage: {
         _type: 'image',
         asset: {
           _type: 'reference',
@@ -36,69 +44,73 @@ const createEvent = async (name, date, distance, price, distances) => {
       },
     });
 
-    return newEvent
+    res.status(201).json(newEvent);
   } catch (error) {
     console.error('Error creating event:', error);
-    throw new Error('Failed to create event');
+    res.status(500).json({ error: 'Failed to create event' });
   }
 };
 
-const updateEventById = async (eventId, data) => {
+const updateEventById = async (req, res) => {
+  const { eventId } = req.params;
+  const data = req.body;
+
   try {
     const updatedEvent = await client.patch(eventId).set(data).commit();
-    return updatedEvent;
+    res.status(200).json(updatedEvent);
   } catch (error) {
     console.error('Error updating event:', error);
-    throw new Error('Failed to update event');
+    res.status(500).json({ error: 'Failed to update event' });
   }
 };
 
-const getEventById = async (eventId) => {
+const getEventById = async (req, res) => {
+  const { eventId } = req.params;
+
   try {
     const event = await client.getDocument(eventId);
-    return event;
+    res.status(200).json(event);
   } catch (error) {
     console.error('Error fetching event:', error);
-    throw new Error('Failed to fetch event');
+    res.status(500).json({ error: 'Failed to fetch event' });
   }
 };
 
-// Logic for retrieving all events
 const getAllEvents = async (req, res) => {
   try {
     const events = await client.fetch(`
       *[_type == "event"]{
         _id,
-        name, 
-        title, 
-        description, 
-        address, 
-        day, 
-        month, 
-        year, 
-        price, 
-        distance, 
+        name,
+        title,
+        description,
+        address,
+        day,
+        month,
+        year,
+        price,
+        distance,
         "imageUrl": eventImage.asset->url
       }
     `);
-    res.json(events);
+    res.status(200).json(events);
   } catch (error) {
     console.error("Error fetching events:", error);
-    res.status(500).json({ error: 'Failed to fetch event' });
+    res.status(500).json({ error: 'Failed to fetch events' });
   }
 };
 
-// Logic for deleting an event by ID
-const deleteEventById = async (eventId) => {
+const deleteEventById = async (req, res) => {
+  const { eventId } = req.params;
+
   try {
-    await client.delete(eventId).commit();
-    return 'Event deleted successfully';
+    await client.delete(eventId);
+    res.status(200).json({ message: 'Event deleted successfully' });
   } catch (error) {
     console.error('Error deleting event:', error);
-    throw new Error('Failed to delete event');
+    res.status(500).json({ error: 'Failed to delete event' });
   }
 };
-
 
 module.exports = {
   createEvent,
