@@ -3,6 +3,10 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const eventRoutes = require('./routes/eventRoutes');
 const gearRoutes = require('./routes/gearRoutes');
+const cartRoutes = require('./routes/cart');
+const stripeRoutes = require('./routes/stripeRoutes');
+
+
 const dotenv = require('dotenv');
 const cors = require('cors');
 const multer = require('multer');
@@ -37,6 +41,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/users', userRoutes);
 app.use('/event', eventRoutes);
 app.use('/gear', gearRoutes);
+app.use('/cart', cartRoutes);
+app.use('/stripe', stripeRoutes);
 
 const PORT = process.env.PORT || 3309;
 app.listen(PORT, () => {

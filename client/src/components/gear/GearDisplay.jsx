@@ -18,12 +18,7 @@ const GearDisplay = () => {
 
     const fetchGearData = async () => {
         try {
-            const token = userId || guestToken; 
-            const response = await axios.get(`${apiUrl}/gear/`, {
-                headers: {
-                    Authorization: token ? token : ''
-                }
-            });
+            const response = await axios.get(`${apiUrl}/gear/`);
             setGearData(response.data);
         } catch (error) {
             console.error('Error fetching gear:', error);
@@ -38,26 +33,29 @@ const GearDisplay = () => {
         setDisplayStyle(displayStyle === 'grid' ? 'flex' : 'grid');
     };
 
-
-    const addItemToCart = async (gearId) => {
+    const addItemToCart = async (item) => {
         try {
-            const token = userId || guestToken; 
-            const cartResponse = await axios.get(`http://localhost:3309/users/${token}/cart`);
-            const cartId = cartResponse.data.id;
-    
-            // Add item to cart
-            const response = await axios.post(`http://localhost:3309/snipcart/${cartId}/${gearId}`);
-            console.log(response.data.message);
-    
-            // If the user is a guest, save the guest token in localStorage
-            if (!userId && !guestToken) {
-                localStorage.setItem('guestToken', response.data.token);
+            const token = userId || guestToken;
+            const response = await axios.post('http://localhost:3309/cart/add', {
+                userId: userId,
+                guestToken: guestToken,
+                item: {
+                    _ref: item._id,
+                    _type: item._type,
+                    price: item.price,
+                    name: item.name
+                }
+            });
+            console.log(response.data);
+
+            // If the user is a guest and no guest token exists, save the guest token in localStorage
+            if (!userId && !guestToken && response.data.guestToken) {
+                localStorage.setItem('guestToken', response.data.guestToken);
             }
         } catch (error) {
             console.error('Error adding item to cart:', error);
         }
     };
-    
 
     let filteredData = [...gearData];
     return (
@@ -80,9 +78,9 @@ const GearDisplay = () => {
                     </div>
                 </div>
             </div>
-            <div className={`${displayStyle} ${displayStyle === 'grid' ? 'grid-cols-4 gap-4' : 'flex flex-wrap justify-center'}`}>
+            <div className={`${displayStyle} ${displayStyle === 'grid' ? 'grid grid-cols-4 gap-4' : 'flex flex-wrap justify-center'}`}>
                 {filteredData.map(item => (
-                    <div key={item.id} className="max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden flex flex-col relative">
+                    <div key={item._id} className="max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden flex flex-col relative">
                         <p className="absolute top-0 right-0 bg-custom-blue text-white px-2 py-1 rounded-tr-lg rounded-bl-lg">
                             ${item.price}
                         </p>
@@ -90,7 +88,7 @@ const GearDisplay = () => {
                         <div className="p-6 flex-grow">
                             <h3 className="text-xl font-bold text-custom-blue">{item.name}</h3>
                             <div className="flex justify-between mt-4">
-                                <button className="bg-custom-blue text-white px-4 py-2 rounded w-full" onClick={() => addItemToCart(item.id)}>Add to Cart</button>
+                                <button className="bg-custom-blue text-white px-4 py-2 rounded w-full" onClick={() => addItemToCart(item)}>Add to Cart</button>
                             </div>
                         </div>
                     </div>
