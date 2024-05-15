@@ -14,13 +14,17 @@ const Event = ({ event }) => {
   const isDescriptionLong = description.split(' ').length > 10;
 
   return (
-    <Card className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 mx-auto flex flex-col md:flex-row bg-gray-100 shadow-md rounded-lg">
+    <Card 
+      className="w-full mb-4 mx-auto flex flex-col md:flex-row bg-gray-100 shadow-md rounded-lg"
+      style={{ height: '50vh' }}
+    >
       <img
         src={imageUrl}
         alt={`${title} image`}
         className="w-full md:w-1/2 object-cover rounded-t-lg md:rounded-l-lg md:rounded-t-none"
+        style={{ height: '50%' }}
       />
-      <CardBody className="p-4 md:w-1/2">
+      <CardBody className="p-4 flex-1">
         <Typography variant="h6" className="text-custom-blue mb-2 uppercase font-sans">
           {title}
         </Typography>

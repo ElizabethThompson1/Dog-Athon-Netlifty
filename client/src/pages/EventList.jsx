@@ -50,7 +50,7 @@ const EventList = () => {
   if (error) {
     return <p className="text-center mt-8 text-red-500">Error loading events.</p>;
   }
-  
+
   return (
     <div>
       <div className="bg-custom-blue text-white py-20 px-8 text-center">
@@ -62,19 +62,17 @@ const EventList = () => {
         <div className="w-1/4">
           <LeftCategories onFilter={handleFilter} />
         </div>
-        <div className=" px-4 w-full">
+        <div className="w-3/4 px-4">
           {filteredEvents.length > 0 ? (
-             <div className="mt-4 w-full">
+            <div className="mt-4 w-full">
               {filteredEvents.map((event, index) => (
-                <div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4">
-                  <Event
-                    event={event} 
-                  />
+                <div key={index} className="w-full mb-4">
+                  <Event event={event} />
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-lg mt-8 text-center">No events found for the selected criteria.</p>
+            <p className="text-lg mt-8 w-full text-center">No events found for the selected criteria.</p>
           )}
         </div>
       </div>
