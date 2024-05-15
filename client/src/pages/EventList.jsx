@@ -3,6 +3,8 @@ import axios from 'axios';
 import LeftCategories from '../components/events/LeftCategories';
 import Event from '../components/events/Event';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const EventList = () => {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -17,7 +19,7 @@ const EventList = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:3309/event/');
+      const response = await axios.get(`${apiUrl}/event/`);
       setEvents(response.data);
       setFilteredEvents(response.data);
     } catch (err) {

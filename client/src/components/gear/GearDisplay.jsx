@@ -35,7 +35,7 @@ const GearDisplay = () => {
   useEffect(() => {
     fetchGearData();
   }, []);
-  
+
   console.log(apiUrl);
 
   const fetchGearData = async () => {
@@ -58,7 +58,7 @@ const GearDisplay = () => {
   const addItemToCart = async (item) => {
     try {
       const token = userId || guestToken;
-      const response = await axios.post(`${apiUrl}/cart/add`, {
+      const response = await axios.post('http://localhost:3309/cart/add', {
         userId: userId,
         guestToken: guestToken,
         item: {

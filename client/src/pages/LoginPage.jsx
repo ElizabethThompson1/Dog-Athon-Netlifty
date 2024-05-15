@@ -6,6 +6,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardBody, CardFooter, Input, Button, Typography } from "@material-tailwind/react";
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const LoginPage = () => {
     const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ const LoginPage = () => {
 
     const onSubmit = async (values, { setSubmitting }) => {
         try {
-            const response = await axios.post('http://localhost:3309/users/login', values);
+            const response = await axios.post(`${apiUrl}/users/login`, values);
             localStorage.setItem('userToken', response.data.token);
     
             

@@ -5,6 +5,8 @@ import { Card, CardHeader, CardBody, CardFooter, Input, Button, Typography } fro
 import { Formik, Form, Field, ErrorMessage, useField } from "formik";
 import { Link } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const RegistrationPage = () => {
   const navigate = useNavigate(); // Hook to get access to the navigate instance
 
@@ -16,7 +18,7 @@ const RegistrationPage = () => {
     formData.append('profileImage', values.profileImage); // Assuming values.profileImage is the image file
   
     try {
-      const response = await axios.post('http://localhost:3309/users/register', formData, {
+      const response = await axios.post(`${apiUrl}/users/register`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

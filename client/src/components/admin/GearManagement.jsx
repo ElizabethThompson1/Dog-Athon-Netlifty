@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, useField } from "formik";
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const GearManagement = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -16,7 +18,7 @@ const GearManagement = () => {
         formDataToSend.append('sizes[large]', values.sizes.large);
 
         try {
-            const response = await axios.post('http://localhost:3309/gear/create', formDataToSend, {
+            const response = await axios.post('${apiUrl}/gear/create', formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -14,13 +14,20 @@ const client = createClient({
   apiVersion: "2022-02-03"
 });
 
+// Create checkout session
 const createCheckoutSession = async (req, res) => {
   const { items } = req.body;
 
   try {
-    // Fetch gear or events data from Sanity
-    const itemData = await client.fetch('*[_type == "gear" || _type == "event"]');
+    // Fetch item data from Sanity
+    const itemIds = items.map(item => item.id);
+    const itemData = await client.fetch(`*[_id in $itemIds]`, { itemIds });
+    
+    // Log itemData and items to debug structure
+    console.log('itemData:', itemData);
+    console.log('items:', items);
 
+    // Map items to line items for Stripe
     const lineItems = items.map(item => {
       const product = itemData.find(p => p._id === item.id);
       if (!product) {
@@ -31,7 +38,7 @@ const createCheckoutSession = async (req, res) => {
         price_data: {
           currency: 'usd',
           product_data: {
-            name: product.title,
+            name: product.title || product.name,
           },
           unit_amount: product.price * 100, 
         },
@@ -47,8 +54,10 @@ const createCheckoutSession = async (req, res) => {
       cancel_url: `${req.headers.origin}/cancel`,
     });
 
+    console.log('session:', session);
     res.json({ id: session.id });
   } catch (error) {
+    console.error('Error creating checkout session:', error.message);
     res.status(500).json({ error: error.message });
   }
 };

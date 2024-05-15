@@ -3,12 +3,14 @@ import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const DisplayGear = () => {
     const [gearList, setGearList] = useState([]);
 
     const fetchGear = async () => {
         try {
-            const response = await axios.get('http://localhost:3309/gear/');
+            const response = await axios.get(`${apiUrl}/gear/`);
             setGearList(response.data);
         } catch (error) {
             console.error('Error fetching gear:', error);
@@ -21,7 +23,7 @@ const DisplayGear = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:3309/gear/${id}`);
+            await axios.delete(`${apiUrl}/gear/${id}`);
             fetchGear();
         } catch (error) {
             console.error('Error deleting gear:', error);

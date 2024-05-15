@@ -4,12 +4,14 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const DisplayEvents = () => {
     const [events, setEvents] = useState([]);
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get('http://localhost:3309/event/');
+            const response = await axios.get(`${apiUrl}/event/`);
             setEvents(response.data);
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -22,7 +24,7 @@ const DisplayEvents = () => {
 
     const deleteEvent = async (id) => {
         try {
-            await axios.delete(`http://localhost:3309/event/${id}`);
+            await axios.delete(`${apiUrl}/event/${id}`);
             setEvents(events.filter(event => event.id !== id));
         } catch (error) {
             console.error('Error deleting event:', error);

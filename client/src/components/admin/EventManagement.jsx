@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, useField } from "formik";
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const EventManagement = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -16,7 +18,7 @@ const EventManagement = () => {
         formDataToSend.append('image', values.eventImage);
 
         try {
-            const response = await axios.post('http://localhost:3309/event/create', formDataToSend, {
+            const response = await axios.post(`${apiUrl}/event/create`, formDataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -3,12 +3,14 @@ import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
+const apiUrl = process.env.REACT_APP_API_BASE_URL;
+
 const DisplayUsers = () => {
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3309/users/');
+            const response = await axios.get(`${apiUrl}/users/`);
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
